@@ -17,6 +17,61 @@ class App extends Component {
 
   }
 
+  componentWillMount() {
+    console.log("即将被挂载")
+  }
+
+  componentDidMount() {
+    console.log("挂载后")
+  }
+
+  // states 和 prop变化
+  shouldComponentUpdate() {
+    console.log('shouldComponentUpdate')
+    return true //组件更不更新？
+    //return false 后面的函数否不执行
+  }
+
+  componentWillUpdate() {
+    console.log('componentWillUpdate')
+  }
+
+  componentDidUpdate() {
+    console.log('componentDidUpdate')
+  }
+
+  // //组件从父组件接收参数 只要父组件的render执行了 就执行
+  // componentWillReceiveProps() {
+  //   console.log('child')
+  // }
+
+ componentWillUnmount () {
+   console.log('componentWillUnmount')
+ }
+
+
+  render() {
+    console.log("render")
+    return (
+      <Fragment>
+        <label htmlFor="insertArea">输入内容</label>{/**不能用for */}
+        <input
+          id="insertArea"
+          className='input'
+          value={this.state.inputVal}
+          onChange={this.handleInputChange.bind(this)}
+          ref={(input) => this.input = input} />
+        <button onClick={() => { this.handleBtnClick() }}>提交</button>
+        <ul ref={(ul) => this.ul = ul}>
+          {
+            this.getToodoItem()
+          }
+        </ul>
+      </Fragment>
+    )
+  }
+
+
   handleInputChange(e) {
     // this.setState({
     //   inputVal: e.target.value
@@ -69,28 +124,6 @@ class App extends Component {
           />
         )
       })
-    )
-  }
-
-
-
-  render() {
-    return (
-      <Fragment>
-        <label htmlFor="insertArea">输入内容</label>{/**不能用for */}
-        <input
-          id="insertArea"
-          className='input'
-          value={this.state.inputVal}
-          onChange={this.handleInputChange.bind(this)}
-          ref={(input) => this.input = input} />
-        <button onClick={() => { this.handleBtnClick() }}>提交</button>
-        <ul ref={(ul) => this.ul = ul}>
-          {
-            this.getToodoItem()
-          }
-        </ul>
-      </Fragment>
     )
   }
 }

@@ -8,6 +8,10 @@ class TodoItem extends Component {
     this.handleClick = this.handleClick.bind(this)//首先执行
   }
 
+   componentWillReceiveProps() {
+    console.log('child')
+  }
+
   handleClick() {
     const {delect, idx} = this.props
     delect(idx)
