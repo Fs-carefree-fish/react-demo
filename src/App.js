@@ -7,6 +7,7 @@ class App extends Component {
 
   constructor(props) {
     super(props)//调用父类
+
     this.state = {
       inputVal: 'hello',
       list: []
@@ -20,21 +21,26 @@ class App extends Component {
     // this.setState({
     //   inputVal: e.target.value
     // })
-    const val = e.target.value
+    //const val = e.target.value
+    const val = this.input.value
     this.setState(() => ({
       inputVal: val
     }))
   }
 
   handleBtnClick(e) {
+    //this.setState是一个异步函数
     this.setState((prevState) => ({
       list: [...prevState.list, prevState.inputVal],
       inputVal: ''
-    }))
+    }), () => {
+      console.log(this.ul.querySelectorAll('li').length)
+    })
     // this.setState({
     //   list: [...this.state.list, this.state.inputVal],
     //   inputVal: ''
     // })
+
   }
 
   handleDelect(index) {
@@ -43,11 +49,11 @@ class App extends Component {
     // this.setState({
     //   list: list
     // })
-    
+
     this.setState((prevState) => {
       const list = [...prevState.list]
       list.splice(index, 1)
-      return{list}
+      return { list }
     })
   }
 
@@ -55,12 +61,12 @@ class App extends Component {
     return (
       this.state.list.map((item, index) => {
         return (
-            <ToodItem
-              key={index}
-              content={item} // 传内容
-              idx={index}//向子组件传值 下标
-              delect={this.handleDelect} //传方法
-            />
+          <ToodItem
+            key={index}
+            content={item} // 传内容
+            idx={index}//向子组件传值 下标
+            delect={this.handleDelect} //传方法
+          />
         )
       })
     )
@@ -76,9 +82,10 @@ class App extends Component {
           id="insertArea"
           className='input'
           value={this.state.inputVal}
-          onChange={this.handleInputChange.bind(this)} />
+          onChange={this.handleInputChange.bind(this)}
+          ref={(input) => this.input = input} />
         <button onClick={() => { this.handleBtnClick() }}>提交</button>
-        <ul>
+        <ul ref={(ul) => this.ul = ul}>
           {
             this.getToodoItem()
           }

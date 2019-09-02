@@ -18,14 +18,16 @@ class TodoItem extends Component {
   //state props一旦改变，render会执行
 
   render() {
-    // const {content, test} = this.props
-    // return (
-    //   <li onClick={this.handleClick}>
-    //    {test} - {content}
-    //   </li>
-    // )
+    const {content, test} = this.props
+    return (
+      <li onClick={this.handleClick}>
+       {test} - {content}
+      </li>
+    )
 
-    return React.createElement('div', {}, 'item')
+    //Vue 虚拟DOM
+    //原理 JSX -> createElement -> 虚拟DOM (JS对象) -> 真实DOM return React.createElement('div', {}, 'item')
+    //虚拟DOM优点 ：1、性能提升 2、跨端应用实现  React Native  
   }
 }
 
